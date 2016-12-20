@@ -6,12 +6,14 @@ use TransactPRO\Gate\Builders\Builder;
 use TransactPRO\Gate\Builders\CancelDmsDataBuilder;
 use TransactPRO\Gate\Builders\ChargeDataBuilder;
 use TransactPRO\Gate\Builders\ChargeHoldDataBuilder;
+use TransactPRO\Gate\Builders\ChargeRecurrentDataBuilder;
 use TransactPRO\Gate\Builders\InitDataBuilder;
 use TransactPRO\Gate\Builders\InitDmsDataBuilder;
 use TransactPRO\Gate\Builders\InitP2PDataBuilder;
 use TransactPRO\Gate\Builders\InitCreditDataBuilder;
 use TransactPRO\Gate\Builders\DoP2PDataBuilder;
 use TransactPRO\Gate\Builders\DoCreditDataBuilder;
+use TransactPRO\Gate\Builders\InitRecurrentDataBuilder;
 use TransactPRO\Gate\Builders\MakeHoldDataBuilder;
 use TransactPRO\Gate\Builders\RefundDataBuilder;
 use TransactPRO\Gate\Builders\StatusRequestDataBuilder;
@@ -158,6 +160,22 @@ class GateClient
     {
         $buildData = $this->buildData(new DoCreditDataBuilder($data));
         $response  = $this->requestExecutor->executeRequest('do_credit', $buildData);
+
+        return $response;
+    }
+
+    public function initRecurrent(array $data)
+    {
+        $buildData = $this->buildData(new InitRecurrentDataBuilder($data));
+        $response  = $this->requestExecutor->executeRequest('init_recurrent', $buildData);
+
+        return $response;
+    }
+
+    public function chargeRecurrent(array $data)
+    {
+        $buildData = $this->buildData(new ChargeRecurrentDataBuilder($data));
+        $response  = $this->requestExecutor->executeRequest('charge_recurrent', $buildData);
 
         return $response;
     }
